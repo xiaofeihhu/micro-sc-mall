@@ -74,3 +74,4 @@ No | 内容 | 状态 |备注
     前端工程由于技术和时间原因没有着手，希望有这方面想法和技术的大神一起加入  
     联系方式：
         Tel 13851936496     Email 401263564@qq.com
+        ![image](https://github.com/xiaofeihhu/micro-sc-mall/blob/master/WeChat.png)
