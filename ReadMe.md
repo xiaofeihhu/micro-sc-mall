@@ -73,5 +73,7 @@ No | 内容 | 状态 |备注
 **最后**  
     前端工程由于技术和时间原因没有着手，希望有这方面想法和技术的大神一起加入  
     联系方式：
-        Tel 13851936496     Email 401263564@qq.com
-        ![image](https://github.com/xiaofeihhu/micro-sc-mall/blob/master/WeChat.png)
+        Tel 13851936496     Email 401263564@qq.com  
+        <p align="left">
+        <img src="https://github.com/xiaofeihhu/micro-sc-mall/blob/master/WeChat.png" alt="微信二维码"  width="140" height="140">
+        </p>
