@@ -1,0 +1,50 @@
+HELP.md
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+application.properties
+bootstrap.properties
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/
+auth/auth-authorization-server/target/
+auth/auth-client/target/
+auth/auth-common/target/
+auth/auth-server/target/
+center/config/target/
+center/eureka/target/
+common/core/target/
+common/extensions/target/
+gate/target/
+mall-service-base/logistics/target/
+mall-service-base/order/target/
+mall-service-base/pay/target/
+mall-service-base/product/target/
+mall-service-base/user/target/
+monitor/admin/target/
+monitor/turbine/target/
+sample-service/service-consumer/target/
+sample-service/service-producer/target/

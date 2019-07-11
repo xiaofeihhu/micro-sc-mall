@@ -1,0 +1,187 @@
+version: '2'
+services:
+#  zipkin:
+#    image: openzipkin/zipkin
+#    container_name: zipkin
+#    ports:
+#      - "9411:9411"
+#    networks:
+#      - mall
+#    volumes:
+#      - /home/yufei/znv/logs/zipkin:/logs
+  zipkin:
+    image: znv/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - mall
+    volumes:
+      - /home/yufei/znv/logs/zipkin:/logs
+      - /etc/localtime:/etc/localtime
+  eureka:
+    image: znv/eureka
+    container_name: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - mall
+    volumes:
+      - /home/yufei/znv/logs/eureka:/logs
+      - /etc/localtime:/etc/localtime
+    environment:
+      - BOOT_ADMIN_HOST=admin
+      - ZIPKIN_ZONE_HOST=zipkin
+  config:
+      image: znv/config
+      container_name: config
+      depends_on:
+        - eureka
+        - admin
+      ports:
+        - "8100:8100"
+      networks:
+        - mall
+      volumes:
+        - /home/yufei/znv/logs/config:/logs
+        - /etc/localtime:/etc/localtime
+      environment:
+        - EUREKA_ZONE_HOST=eureka
+        - BOOT_ADMIN_HOST=admin
+      entrypoint: /wait-for.sh -d eureka:8761 -c 'java -jar /config-0.0.1-SNAPSHOT.jar';
+  admin:
+      image: znv/admin
+      container_name: admin
+      depends_on:
+        - eureka
+      ports:
+        - "8022:8022"
+      networks:
+        - mall
+      volumes:
+        - /home/yufei/znv/logs/admin:/logs
+        - /etc/localtime:/etc/localtime
+      environment:
+        - EUREKA_ZONE_HOST=eureka
+        - ZIPKIN_ZONE_HOST=zipkin
+      entrypoint: /wait-for.sh -d config:8100 -c 'java -jar /admin-0.0.1-SNAPSHOT.jar';
+  authorization:
+      image: znv/auth-authorization-server
+      container_name: authorization
+      depends_on:
+        - eureka
+        - admin
+        - config
+      ports:
+        - "8000:8000"
+      networks:
+        - mall
+      volumes:
+        - /home/yufei/znv/logs/authorization:/logs
+        - /etc/localtime:/etc/localtime
+      environment:
+        - EUREKA_ZONE_HOST=eureka
+        - BOOT_ADMIN_HOST=admin
+        - ZIPKIN_ZONE_HOST=zipkin
+      entrypoint: /wait-for.sh -d admin:8022 -c 'java -jar /auth-authorization-server-0.0.1-SNAPSHOT.jar';
+  auth:
+      image: znv/auth-server
+      container_name: auth
+      depends_on:
+        - eureka
+        - admin
+        - config
+      ports:
+        - "8020:8020"
+      networks:
+        - mall
+      volumes:
+        - /home/yufei/znv/logs/auth:/logs
+        - /etc/localtime:/etc/localtime
+      environment:
+        - EUREKA_ZONE_HOST=eureka
+        - BOOT_ADMIN_HOST=admin
+        - ZIPKIN_ZONE_HOST=zipkin
+      entrypoint: /wait-for.sh -d admin:8022 -c 'java -jar /auth-server-0.0.1-SNAPSHOT.jar';
+  gate:
+      image: znv/gate
+      container_name: gate
+      depends_on:
+        - eureka
+        - admin
+        - auth
+        - config
+      ports:
+        - "8080:8080"
+      networks:
+        - mall
+      volumes:
+        - /home/yufei/znv/logs/gate:/logs
+        - /etc/localtime:/etc/localtime
+      environment:
+        - EUREKA_ZONE_HOST=eureka
+        - BOOT_ADMIN_HOST=admin
+        - ZIPKIN_ZONE_HOST=zipkin
+      entrypoint: /wait-for.sh -d auth:8020 -c 'java -jar /gate-0.0.1-SNAPSHOT.jar';
+  turbine:
+      image: znv/turbine
+      container_name: turbine
+      depends_on:
+        - eureka
+        - admin
+        - config
+      ports:
+        - "8023:8023"
+      networks:
+        - mall
+      volumes:
+        - /home/yufei/znv/logs/turbine:/logs
+        - /etc/localtime:/etc/localtime
+      environment:
+        - EUREKA_ZONE_HOST=eureka
+        - BOOT_ADMIN_HOST=admin
+        - ZIPKIN_ZONE_HOST=zipkin
+      entrypoint: /wait-for.sh -d admin:8022 -c 'java -jar /turbine-0.0.1-SNAPSHOT.jar';
+  consumer:
+      image: znv/service-consumer
+      container_name: consumer
+      depends_on:
+        - eureka
+        - admin
+        - gate
+        - config
+      ports:
+        - "8081:8081"
+      networks:
+        - mall
+      volumes:
+        - /home/yufei/znv/logs/consumer:/logs
+        - /etc/localtime:/etc/localtime
+      environment:
+        - EUREKA_ZONE_HOST=eureka
+        - BOOT_ADMIN_HOST=admin
+        - ZIPKIN_ZONE_HOST=zipkin
+      entrypoint: /wait-for.sh -d gate:8080 -c 'java -jar /service-consumer-0.0.1-SNAPSHOT.jar';
+  producer:
+      image: znv/service-producer
+      container_name: producer
+      depends_on:
+        - eureka
+        - admin
+        - gate
+        - config
+      ports:
+        - "8082:8082"
+      networks:
+        - mall
+      volumes:
+        - /home/yufei/znv/logs/producer:/logs
+        - /etc/localtime:/etc/localtime
+      environment:
+        - EUREKA_ZONE_HOST=eureka
+        - BOOT_ADMIN_HOST=admin
+        - ZIPKIN_ZONE_HOST=zipkin
+      entrypoint: /wait-for.sh -d gate:8080 -c 'java -jar /service-producer-0.0.1-SNAPSHOT.jar';
+networks:
+  mall:
+    driver: bridge

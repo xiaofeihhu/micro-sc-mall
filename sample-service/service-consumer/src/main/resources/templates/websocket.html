@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Websocket Test</title>
+<script type="text/javascript">
+	var url = "ws://" + document.location.host + "/websocket/"+'[[${sessionId}]]';
+	var socket = new WebSocket(url);
+	if (typeof (WebSocket) == "undefined") {
+		alert("浏览器不支持Websocket");
+	} else {
+		socket.onopen = function() {
+			document.getElementById("stateTxt").value = "已连接";
+            document.getElementById("sessionIdTxt").value = '[[${sessionId}]]';
+		};
+
+		socket.onmessage = function(msg) {
+			console.info("(" + msg.data + ")");
+			document.getElementById("msg").value = msg.data;
+
+		};
+
+		socket.onclose = function() {
+			document.getElementById("stateTxt").value = "已断开";
+		};
+
+		socket.onerror = function() {
+			alert("Socket error");
+		}
+
+		function send() {
+			socket.send("from clinet msg:" + location.href + ":" + new Date());
+		}
+
+		function subscribe() {
+			window.open(document.getElementById("subscribeUrlTxt").value);
+		}
+	}
+</script>
+</head>
+<body>
+	<form>
+		<label>WebSocket连接状态: </label> <input id="stateTxt" type="text" /> <br />
+		<br /> <label>当前客户端session id: </label> <input id="sessionIdTxt"
+			type="text" /> <br /> <br />
+		<div>
+			<!--<label>订阅url样例：</label> <input type="button" value="订 阅"-->
+				<!--onclick="subscribe()" /><br /> <input id="subscribeUrlTxt"-->
+				<!--type="text" style="width: 100%" /> <br /> <br />-->
+			接收消息：（可进入浏览器调试模式，见Console打印信息） <br />
+			<textarea id="msg" style="width: 100%; height: 200px;"></textarea>
+			<br /> <br />
+		</div>
+	</form>
+</body>
+</html>

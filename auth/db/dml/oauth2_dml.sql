@@ -1,0 +1,2 @@
+INSERT INTO oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove)
+VALUES ('test_client', NULL, '$2a$10$a.1DHx8GjLisU3PmPS449e2fomK5s8s3RYQq42cOBRIdp1E.yhX3i', 'read', 'client_credentials,password,refresh_token', NULL, NULL, NULL, NULL, NULL, NULL);

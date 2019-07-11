@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.yf</groupId>
+        <artifactId>parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>./common/parent/pom.xml</relativePath>
+    </parent>
+
+	<artifactId>micro-sc-mall</artifactId>
+
+	<name>micro-sc-mall</name>
+	<description>A mall project</description>
+
+    <developers>
+        <developer>
+            <name>yufei</name>
+            <email>401263564@qq.com</email>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>gate</module>
+        <module>auth</module>
+        <module>monitor</module>
+        <module>mall-service-base</module>
+        <module>mall-service-extends</module>
+        <module>center</module>
+        <module>sample-service</module>
+        <module>common</module>
+    </modules>
+
+</project>
