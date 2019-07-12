@@ -5,7 +5,7 @@
     <packaging>pom</packaging>
 
     <parent>
-        <groupId>com.yf</groupId>
+        <groupId>com.yf.mall</groupId>
         <artifactId>parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>./common/parent/pom.xml</relativePath>

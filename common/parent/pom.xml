@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.yf</groupId>
+    <groupId>com.yf.mall</groupId>
     <artifactId>parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 

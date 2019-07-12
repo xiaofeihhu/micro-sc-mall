@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>service-parent</artifactId>
-        <groupId>com.yf</groupId>
+        <groupId>com.yf.mall</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../common/service-parent/pom.xml</relativePath>
     </parent>
@@ -25,7 +25,7 @@
 
         <!-- 网关鉴权客户端-->
         <dependency>
-            <groupId>com.yf</groupId>
+            <groupId>com.yf.mall</groupId>
             <artifactId>auth-client</artifactId>
             <version>${project.version}</version>
         </dependency>
