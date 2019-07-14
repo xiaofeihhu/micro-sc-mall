@@ -58,6 +58,7 @@ No | 内容 | 状态 |备注
 14| 分布式id生成器 | **`done`**|
 15|完成一个简单的完整线上流程| 
 16|数据库表结构整体设计| 
+17|增加全局系统环境变量配置(mall.sh)| 
 
 
 **启动方式**  
@@ -65,7 +66,9 @@ No | 内容 | 状态 |备注
     需预先准备docker环境并安装docker-compose组件
     修改pom文件中的docker_host
     通过maven命令mvn package 生成docker镜像，  
-    再cd到docker-compose.yml文件目录执行启动命令:docker-compose up -d
+    再cd到docker-compose.yml文件目录执行启动命令:  
+    source mall.sh  
+    docker-compose up -d  
   * 正常方式  
     通过maven命令mvn package 打包，
     将target文件夹下的tar文件解压目录，执行bin目录下的启动脚本
