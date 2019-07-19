@@ -9,7 +9,12 @@
     <!--</parent>-->
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.yf.mall</groupId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>mall-mybatis-generator</module>
+        <module>mall-mgb-plugin</module>
+    </modules>
     <artifactId>mall-service-extends</artifactId>
 
 </project>

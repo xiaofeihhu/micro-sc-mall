@@ -1,5 +1,6 @@
 package com.znv.mall.logistics.application;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -21,5 +22,11 @@ public class CustomApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("{} 启动成功！！",applicationName);
+    }
+
+    public static void main(String[] args) {
+        Object i = new Integer(1);
+        double d =(double) i;
+        System.out.println(d);
     }
 }
