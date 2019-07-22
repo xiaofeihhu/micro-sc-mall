@@ -18,6 +18,9 @@
         <module>order</module>
         <module>pay</module>
         <module>logistics</module>
+        <module>content</module>
+        <module>sale</module>
+        <module>service-common</module>
     </modules>
 
     <dependencies>
@@ -61,6 +64,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yf.mall</groupId>
+            <artifactId>mall-mgb</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

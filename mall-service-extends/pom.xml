@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>mall-mybatis-generator</module>
+        <module>mall-mgb</module>
         <module>mall-mgb-plugin</module>
     </modules>
     <artifactId>mall-service-extends</artifactId>

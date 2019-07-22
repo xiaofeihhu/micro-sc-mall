@@ -12,6 +12,7 @@ import java.util.Properties;
 
 /**
  * 自定义注释生成器
+ * 给mall-mybatis-generator这个工程使用
  */
 public class CommentGenerator extends DefaultCommentGenerator {
     private boolean addRemarkComments = false;

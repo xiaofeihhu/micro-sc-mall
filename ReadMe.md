@@ -31,11 +31,13 @@ MQ|rabbitmq |5672
 oauth2授权|auth-authorization-server | 8000  
 测试用-生产者服务|producer|8082  
 测试用-消费者服务|consumer|8081  
-用户服务|user|8085
-商品服务|product|8086
-订单服务|order|8087
-支付服务|pay|8088
-物流服务|logistics|8089  
+用户服务|user|8083
+商品服务|product|8084
+订单服务|order|8085
+支付服务|pay|8086
+物流服务|logistics|8087  
+内容服务|content|8088  
+促销服务|sale|8089  
 
 
 **TODO List**
