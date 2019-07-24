@@ -270,4 +270,18 @@
       AND phone = #{phone,jdbcType=VARCHAR}
     </if>
   </select>
+
+  <select id="selectByOrCondition" parameterType="com.znv.mall.user.bean.UmsMember" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ums_member
+    <where>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null">
+        OR phone = #{phone,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
 </mapper>

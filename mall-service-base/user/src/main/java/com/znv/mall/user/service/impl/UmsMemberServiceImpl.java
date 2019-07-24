@@ -11,15 +11,19 @@ import com.znv.mall.user.dao.UmsMemberLoginLogMapper;
 import com.znv.mall.user.dao.UmsMemberMapper;
 import com.znv.mall.user.service.IUmsMemberService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+
+import static com.znv.mall.servicecommon.constants.ServiceCommonConstants.*;
 
 /**
  * @Auther: yf
@@ -95,4 +99,57 @@ public class UmsMemberServiceImpl implements IUmsMemberService {
         umsMemberLoginLog.setIp(httpServletRequest.getRemoteAddr());
         umsMemberLoginLogMapper.insert(umsMemberLoginLog);
     }
+
+
+    @Override
+    public Result register(String username, String password, String telephone, String authCode) {
+
+        // 校验验证码
+        if (!checkAuthCode(telephone, authCode)) {
+            return Result.fail("验证码错误！");
+        }
+
+        // 验证该用户名或手机号是否已被注册
+        UmsMember umsMemberParam = new UmsMember();
+        umsMemberParam.setUsername(username);
+        umsMemberParam.setPhone(telephone);
+        List<UmsMember> existUmsMembers = umsMemberMapper.selectByCondition(umsMemberParam);
+        if (existUmsMembers!=null && existUmsMembers.size()>0) {
+            return Result.fail("该用户已存在！");
+        }
+
+        // 注册成功 写入数据库
+
+        // 异步设置会员默认等级
+
+
+        return Result.success("注册成功！");
+    }
+
+    private boolean checkAuthCode(String telephone, String authCode) {
+        if (StringUtils.isEmpty(authCode)) {
+            return false;
+        }
+
+        // 验证码过了有效期
+        if (!RedisUtil.hasKey(REDIS_KEY_REGISTER_AUTHCODE_PREFIX+telephone)) {
+            return false;
+        }
+        // 校验是否相等
+        if (authCode.equals(String.valueOf(RedisUtil.get(REDIS_KEY_REGISTER_AUTHCODE_PREFIX+telephone)))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public Result generateAuthCode(String telphone) {
+        // 生成6位数验证码 并存入redis 设置5分钟过期时间
+        String randomCode = String.format("%06d", RandomUtils.nextInt(1000000));
+        RedisUtil.set(REDIS_KEY_REGISTER_AUTHCODE_PREFIX+telphone,randomCode,REDIS_KEY_REGISTER_AUTHCODE_EXPIRE);
+
+        return Result.success(randomCode);
+    }
+
 }

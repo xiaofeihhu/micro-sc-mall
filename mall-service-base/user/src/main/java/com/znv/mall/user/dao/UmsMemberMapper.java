@@ -17,4 +17,6 @@ public interface UmsMemberMapper {
     int updateByPrimaryKey(UmsMember record);
 
     List<UmsMember> selectByCondition(UmsMember umsMember);
+
+    List<UmsMember> selectByOrCondition(UmsMember umsMember);
 }
