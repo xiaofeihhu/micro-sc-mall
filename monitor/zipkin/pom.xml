@@ -9,6 +9,10 @@
     <artifactId>zipkin</artifactId>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <skipDockerBuild>false</skipDockerBuild>
         <docker.host.url>http://10.45.157.182:2377</docker.host.url>
     </properties>

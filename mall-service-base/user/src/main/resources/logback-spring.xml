@@ -59,7 +59,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.znv.dao.mapper" level="debug" additivity="true">
+    <logger name="com.znv.mall.user.dao" level="debug" additivity="true">
         <appender-ref ref="console"/>
     </logger>
 

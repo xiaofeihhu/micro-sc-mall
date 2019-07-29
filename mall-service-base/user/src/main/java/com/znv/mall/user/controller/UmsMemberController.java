@@ -34,12 +34,6 @@ public class UmsMemberController {
         return iUmsMemberService.login(loginJson,httpServletRequest);
     }
 
-    @GetMapping("/sessionInfo")
-    @ApiOperation("获取session信息接口")
-    public Result getSessionInfo(HttpServletRequest httpServletRequest) {
-        return Result.success(httpServletRequest.getSession().getAttribute(httpServletRequest.getSession().getId()));
-    }
-
     @PostMapping("/logout")
     @ApiOperation("登出接口")
     public Result logout(HttpServletRequest httpServletRequest) {

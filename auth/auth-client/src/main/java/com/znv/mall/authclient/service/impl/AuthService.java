@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
@@ -14,13 +15,16 @@ import org.springframework.security.jwt.crypto.sign.InvalidSignatureException;
 import org.springframework.security.jwt.crypto.sign.MacSigner;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 @Service
 @Slf4j
-@PropertySource(value = "classpath:application-auth.properties", ignoreResourceNotFound = true)
+@RefreshScope
+//@PropertySource(value = "classpath:application-auth.properties", ignoreResourceNotFound = true)
 public class AuthService implements IAuthService {
 
     @Autowired
@@ -67,7 +71,7 @@ public class AuthService implements IAuthService {
                 }
             }
         }
-        return Stream.of(this.ignoreUrls.split(",")).anyMatch(ignoreUrl -> url.startsWith(StringUtils.trim(ignoreUrl)));
+        return Stream.of(this.ignoreUrls.split(",")).anyMatch(ignoreUrl -> url.matches(StringUtils.trim(ignoreUrl)));
     }
 
     @Override
@@ -107,5 +111,10 @@ public class AuthService implements IAuthService {
     @Override
     public Jwt getJwt(String authentication) {
         return JwtHelper.decode(StringUtils.substring(authentication, BEARER_BEGIN_INDEX));
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 }

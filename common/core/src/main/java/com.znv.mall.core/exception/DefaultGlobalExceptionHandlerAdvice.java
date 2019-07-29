@@ -38,13 +38,15 @@ public class DefaultGlobalExceptionHandlerAdvice {
 
     @ExceptionHandler(value = {Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result exception() {
+    public Result exception(Exception ex) {
+        log.error("",ex);
         return Result.fail();
     }
 
     @ExceptionHandler(value = {Throwable.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result throwable() {
+    public Result throwable(Throwable t) {
+        log.error("",t);
         return Result.fail();
     }
 }
