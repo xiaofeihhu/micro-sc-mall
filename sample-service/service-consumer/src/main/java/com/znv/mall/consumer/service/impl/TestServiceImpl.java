@@ -32,4 +32,9 @@ public class TestServiceImpl implements ITestService{
     public Result getValue2(@RequestBody JSONObject jsonObject) {
         return testServiceProvider.getValue2(jsonObject);
     }
+
+    @Override
+    public Result getSessionInfo() {
+        return testServiceProvider.getSessionInfo();
+    }
 }

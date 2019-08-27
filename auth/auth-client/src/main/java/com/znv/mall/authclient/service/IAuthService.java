@@ -32,6 +32,13 @@ public interface IAuthService {
     boolean hasPermission(Result authResult);
 
     /**
+     * 获取服务器session信息
+     *
+     * @return Result
+     */
+    Result getSession();
+
+    /**
      * 是否无效authentication
      *
      * @param authentication

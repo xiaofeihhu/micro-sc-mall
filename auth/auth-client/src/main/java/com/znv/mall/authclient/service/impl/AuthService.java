@@ -62,7 +62,7 @@ public class AuthService implements IAuthService {
 
     @Override
     public boolean ignoreAuthentication(String url) {
-        // TODO 加上请求路径模糊匹配
+        // 配置过滤的请求白名单
         if (!StringUtils.isEmpty(ignoreUrlPatterns)) {
             String[] ignoreUrlPatternArr = ignoreUrlPatterns.split(",");
             for (String pattern : ignoreUrlPatternArr) {
@@ -77,6 +77,11 @@ public class AuthService implements IAuthService {
     @Override
     public boolean hasPermission(Result authResult) {
         return authResult.isSuccess() && (boolean) authResult.getData();
+    }
+
+    @Override
+    public Result getSession() {
+        return authProvider.getSession();
     }
 
     @Override
@@ -115,6 +120,6 @@ public class AuthService implements IAuthService {
 
     public static void main(String[] args) {
 
-        System.out.println(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        System.out.println("3211.2470".substring(1));
     }
 }

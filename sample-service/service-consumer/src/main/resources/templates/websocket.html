@@ -3,7 +3,8 @@
 <head>
 <title>Websocket Test</title>
 <script type="text/javascript">
-	var url = "ws://" + document.location.host + "/websocket/"+'[[${sessionId}]]';
+	// var url = "ws://" + document.location.host + "/websocket/"+'[[${sessionId}]]';
+    var url = "ws://" + document.location.host + document.location.pathname + "/"+'[[${sessionId}]]';
 	var socket = new WebSocket(url);
 	if (typeof (WebSocket) == "undefined") {
 		alert("浏览器不支持Websocket");

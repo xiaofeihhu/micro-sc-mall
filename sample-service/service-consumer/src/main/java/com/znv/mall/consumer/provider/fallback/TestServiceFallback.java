@@ -29,4 +29,9 @@ public class TestServiceFallback implements TestServiceProvider{
         log.error("getValue2 fallback");
         return Result.fail("getValue2--xxx");
     }
+
+    @Override
+    public Result getSessionInfo() {
+        return Result.fail("getSessionInfo--xxx");
+    }
 }

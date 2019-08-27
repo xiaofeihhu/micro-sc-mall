@@ -27,4 +27,9 @@ public class AuthenticationController {
         return Result.success(decide);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/auth/session")
+    @ApiOperation("session获取接口")
+    public Result getSession(HttpServletRequest httpServletRequest) {
+        return Result.success(httpServletRequest.getSession().getAttribute(httpServletRequest.getSession().getId()));
+    }
 }

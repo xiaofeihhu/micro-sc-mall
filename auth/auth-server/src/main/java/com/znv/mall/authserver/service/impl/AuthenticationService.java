@@ -13,10 +13,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,8 +25,8 @@ public class AuthenticationService implements IAuthenticationService {
      */
     public static final String NONEXISTENT_URL = "NONEXISTENT_URL";
 
-    @Autowired
-    private ResourceService resourceService;
+//    @Autowired
+//    private ResourceService resourceService;
 
     /**
      * 系统中所有权限集合
@@ -106,7 +103,8 @@ public class AuthenticationService implements IAuthenticationService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList())
                 .toArray(new String[authorityRoles.size()]);
-        Set<Resource> resources = resourceService.queryByRoleCodes(authorityRoleCodes);
+//        Set<Resource> resources = resourceService.queryByRoleCodes(authorityRoleCodes);
+        Set<Resource> resources = new HashSet<>();
 //        if (log.isDebugEnabled()) {
 //            log.info("用户被授予角色的资源数量是:{}, 资源集合信息为:{}", resources.size(), resources);
 //        }

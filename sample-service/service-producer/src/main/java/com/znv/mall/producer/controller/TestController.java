@@ -57,14 +57,21 @@ public class TestController {
     }
 
     @ApiOperation("传json参数")
-    @GetMapping("test2")
-    public Result getValue2(@RequestBody JSONObject jsonObject) {
+    @PostMapping("test2")
+    public Result getValue2(@RequestBody JSONObject jsonObject,HttpServletRequest httpServletRequest) {
         return Result.success("hello-" + jsonObject.toJSONString());
     }
 
     @GetMapping("/sessionInfo")
     @ApiOperation("获取session信息接口")
     public Result getSessionInfo(HttpServletRequest httpServletRequest) {
+        return Result.success(httpServletRequest.getSession().getAttribute(httpServletRequest.getSession().getId()));
+    }
+
+    @PostMapping("/sessionInfo")
+    @ApiOperation("设置session")
+    public Result setSessionInfo(String value , HttpServletRequest httpServletRequest) {
+        httpServletRequest.getSession().setAttribute(httpServletRequest.getSession().getId(),value);
         return Result.success(httpServletRequest.getSession().getAttribute(httpServletRequest.getSession().getId()));
     }
 

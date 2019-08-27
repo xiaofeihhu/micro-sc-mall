@@ -35,15 +35,28 @@ public class TestController {
         return iTestService.getValue1(param1, param2);
     }
 
-    @GetMapping("test2")
+    @PostMapping("test2")
     @ApiOperation("测试RequestBody")
-    public Result getValue2(@RequestBody JSONObject jsonObject) {
+    public Result getValue2(@RequestBody JSONObject jsonObject,HttpServletRequest httpServletRequest) {
         return iTestService.getValue2(jsonObject);
     }
 
     @GetMapping("/sessionInfo")
-    @ApiOperation("获取session信息接口")
+    @ApiOperation("获取session")
     public Result getSessionInfo(HttpServletRequest httpServletRequest) {
+        return Result.success(httpServletRequest.getSession().getAttribute(httpServletRequest.getSession().getId()));
+    }
+
+    @GetMapping("/sessionInfoFromProducer")
+    @ApiOperation("获取session从Producer")
+    public Result getSessionInfoFromProducer(HttpServletRequest httpServletRequest) {
+        return iTestService.getSessionInfo();
+    }
+
+    @PostMapping("/sessionInfo")
+    @ApiOperation("设置session")
+    public Result setSessionInfo(HttpServletRequest httpServletRequest) {
+        httpServletRequest.getSession().setAttribute(httpServletRequest.getSession().getId(),"abc123");
         return Result.success(httpServletRequest.getSession().getAttribute(httpServletRequest.getSession().getId()));
     }
 }

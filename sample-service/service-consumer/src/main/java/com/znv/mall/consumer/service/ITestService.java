@@ -12,4 +12,6 @@ public interface ITestService {
                      @RequestParam(value="param2",required = false) String param2);
 
     Result getValue2(@RequestBody JSONObject jsonObject);
+
+    Result getSessionInfo();
 }

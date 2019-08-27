@@ -22,6 +22,7 @@
         <module>parent</module>
         <module>service-parent</module>
         <module>extensions</module>
+        <module>core-base</module>
     </modules>
 
     <!--<repositories>-->
