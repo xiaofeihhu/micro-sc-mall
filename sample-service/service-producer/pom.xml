@@ -31,6 +31,13 @@
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-ip</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core -->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
