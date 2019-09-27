@@ -10,6 +10,7 @@ import com.znv.mall.user.bean.UmsMemberLoginLog;
 import com.znv.mall.user.dao.UmsMemberLoginLogMapper;
 import com.znv.mall.user.dao.UmsMemberMapper;
 import com.znv.mall.user.service.IUmsMemberService;
+import com.znv.mall.user.util.SecretUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class UmsMemberServiceImpl implements IUmsMemberService {
     @Autowired
     UmsMemberLoginLogMapper umsMemberLoginLogMapper;
 
+    @Autowired
+    SecretUtil secretUtil;
+
     @Value("${user.login.failed.maxcount:3}")
     int maxFailedCount;
 
@@ -66,7 +70,7 @@ public class UmsMemberServiceImpl implements IUmsMemberService {
                 return Result.fail(String.format("密码错误超过%s次，用户已锁定,请过%s秒再试",maxFailedCount,expireSeconds));
             }
         }
-        if (password.equals(curUmsMember.getPassword())) {
+        if (secretUtil.encrypt(password).equals(curUmsMember.getPassword())) {
             // 清空失败次数
             RedisUtil.del(userKey);
             HttpSession httpSession = httpServletRequest.getSession();
@@ -119,7 +123,8 @@ public class UmsMemberServiceImpl implements IUmsMemberService {
         }
 
         // 注册成功 写入数据库
-
+        umsMemberParam.setPassword(secretUtil.encrypt(password));
+        umsMemberMapper.insert(umsMemberParam);
         // 异步设置会员默认等级
 
 
