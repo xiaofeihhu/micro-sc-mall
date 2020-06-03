@@ -1,5 +1,5 @@
 package com.znv.mall.producer.config;
-import com.znv.mall.producer.mq.KafkaDataProducer;
+import com.znv.mall.extensions.mq.KafkaDataProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;

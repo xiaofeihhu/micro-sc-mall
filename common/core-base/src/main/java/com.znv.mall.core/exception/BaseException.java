@@ -7,25 +7,25 @@ public class BaseException extends RuntimeException {
     /**
      * 异常对应的错误类型
      */
-    private ErrorType errorType;
+    private ResultCode errorType;
 
     /**
      * 默认是系统异常
      */
     public BaseException() {
-        this.errorType = ErrorType.SYSTEM_ERROR;
+        this.errorType = ResultCode.FAIL;
     }
 
-    public BaseException(ErrorType errorType) {
+    public BaseException(ResultCode errorType) {
         this.errorType = errorType;
     }
 
-    public BaseException(ErrorType errorType, String message) {
+    public BaseException(ResultCode errorType, String message) {
         super(message);
         this.errorType = errorType;
     }
 
-    public BaseException(ErrorType errorType, String message, Throwable cause) {
+    public BaseException(ResultCode errorType, String message, Throwable cause) {
         super(message, cause);
         this.errorType = errorType;
     }

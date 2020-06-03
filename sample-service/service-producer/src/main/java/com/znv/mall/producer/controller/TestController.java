@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.znv.mall.core.entity.vo.Result;
 import com.znv.mall.extensions.mail.MailBean;
 import com.znv.mall.extensions.mail.MailUtil;
-import com.znv.mall.producer.mq.KafkaDataProducer;
+import com.znv.mall.extensions.mq.KafkaDataProducer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

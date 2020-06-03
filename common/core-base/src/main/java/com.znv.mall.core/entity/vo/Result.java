@@ -3,7 +3,7 @@ package com.znv.mall.core.entity.vo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.znv.mall.core.exception.BaseException;
-import com.znv.mall.core.exception.ErrorType;
+import com.znv.mall.core.exception.ResultCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -35,20 +35,20 @@ public class Result<T> {
     }
 
     /**
-     * @param errorType
+     * @param resultCode
      */
-    public Result(ErrorType errorType) {
-        this.code = errorType.getCode();
-        this.mesg = errorType.getMesg();
+    public Result(ResultCode resultCode) {
+        this.code = resultCode.code();
+        this.mesg = resultCode.message();
         this.timestamp = ZonedDateTime.now().format(format);
     }
 
     /**
-     * @param errorType
+     * @param resultCode
      * @param data
      */
-    public Result(ErrorType errorType, T data) {
-        this(errorType);
+    public Result(ResultCode resultCode, T data) {
+        this(resultCode);
         this.data = data;
     }
 
@@ -91,7 +91,7 @@ public class Result<T> {
      * @return Result
      */
     public static Result fail() {
-        return new Result(ErrorType.SYSTEM_ERROR);
+        return new Result(ResultCode.FAIL);
     }
 
     /**
@@ -121,7 +121,7 @@ public class Result<T> {
      * @param data
      * @return Result
      */
-    public static Result fail(ErrorType errorType, Object data) {
+    public static Result fail(ResultCode errorType, Object data) {
         return new Result<>(errorType, data);
     }
 
@@ -131,7 +131,7 @@ public class Result<T> {
      * @param errorType
      * @return Result
      */
-    public static Result fail(ErrorType errorType) {
+    public static Result fail(ResultCode errorType) {
         return Result.fail(errorType, null);
     }
 
@@ -142,7 +142,7 @@ public class Result<T> {
      * @return Result
      */
     public static Result fail(Object data) {
-        return new Result<>(ErrorType.SYSTEM_ERROR, data);
+        return new Result<>(ResultCode.FAIL, data);
     }
 
 

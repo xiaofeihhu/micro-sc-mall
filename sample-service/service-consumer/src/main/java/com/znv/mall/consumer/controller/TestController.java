@@ -1,6 +1,9 @@
 package com.znv.mall.consumer.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.znv.mall.consumer.jwt.Audience;
+import com.znv.mall.consumer.jwt.HS256JwtTokenUtil;
+import com.znv.mall.consumer.jwt.JwtIgnore;
 import com.znv.mall.consumer.service.ITestService;
 import com.znv.mall.core.entity.vo.Result;
 import io.swagger.annotations.Api;
@@ -12,6 +15,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @RestController
@@ -21,6 +26,9 @@ import java.util.logging.Logger;
 public class TestController {
     @Autowired
     ITestService iTestService;
+
+    @Autowired
+    private Audience audience;
 
     @GetMapping("config")
     @ApiOperation("测试config中心")
@@ -59,4 +67,25 @@ public class TestController {
         httpServletRequest.getSession().setAttribute(httpServletRequest.getSession().getId(),"abc123");
         return Result.success(httpServletRequest.getSession().getAttribute(httpServletRequest.getSession().getId()));
     }
+
+    @PostMapping("/login")
+    @ApiOperation("JWT登录")
+    @JwtIgnore
+    public Result login(HttpServletResponse response, String username, String password) {
+        // 这里模拟测试, 默认登录成功，返回用户ID和角色信息
+        String userId = UUID.randomUUID().toString();
+        String role = "admin";
+
+        // 创建token
+        String token = HS256JwtTokenUtil.createJWT(userId, username, role, audience);
+        log.info("### 登录成功, token={} ###", token);
+
+        // 将token放在响应头
+        response.setHeader(HS256JwtTokenUtil.AUTH_HEADER_KEY, HS256JwtTokenUtil.TOKEN_PREFIX + token);
+        // 将token响应给客户端
+        JSONObject result = new JSONObject();
+        result.put("token", token);
+        return Result.success(result);
+    }
+
 }

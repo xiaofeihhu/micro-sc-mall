@@ -15,19 +15,19 @@ public class DefaultGlobalExceptionHandlerAdvice {
     @ExceptionHandler(value = {MissingServletRequestParameterException.class})
     public Result missingServletRequestParameterException(MissingServletRequestParameterException ex) {
         log.error("missing servlet request parameter exception:{}", ex.getMessage());
-        return Result.fail(ErrorType.ARGUMENT_NOT_VALID);
+        return Result.fail(ResultCode.ARGUMENT_NOT_VALID);
     }
 
     @ExceptionHandler(value = {MultipartException.class})
     public Result uploadFileLimitException(MultipartException ex) {
         log.error("upload file size limit:{}", ex.getMessage());
-        return Result.fail(ErrorType.UPLOAD_FILE_SIZE_LIMIT);
+        return Result.fail(ResultCode.UPLOAD_FILE_SIZE_LIMIT);
     }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public Result serviceException(MethodArgumentNotValidException ex) {
         log.error("service exception:{}", ex.getMessage());
-        return Result.fail(ErrorType.ARGUMENT_NOT_VALID);
+        return Result.fail(ResultCode.ARGUMENT_NOT_VALID);
     }
 
     @ExceptionHandler(value = {BaseException.class})
