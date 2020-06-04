@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.znv.demo.dao.ManageDao">
+
+
+	<!-- 根据查询字段查询监控服务所有信息 -->
+	<select id="queryServer"  resultType="java.util.Map">
+		SELECT * FROM m_server m
+		<where>
+		<if  test="id!=null and id!=''">
+			 m.id=#{id}
+		</if>
+		<if  test="serverName!=null and serverName!=''">
+			AND m.server_name LIKE CONCAT('%',#{serverName},'%')
+		</if>
+		<if  test="status!=null and status!=''">
+			AND m.status=#{status}
+		</if>
+		</where>
+	</select>
+
+	<!-- 修改服务信息 -->
+	<update id="updateServer">
+		UPDATE m_server m
+		<set>
+			<if test="serverName!=null and serverName!=''">
+				m.server_name=#{serverName},
+			</if>
+			<if test="ip!=null and ip!=''">
+				m.ip = #{ip},
+			</if>
+			<if test="pid!=null">
+				m.pid = #{pid},
+			</if>
+			<if test="status!=null and status!=''">
+				status = #{status},
+			</if>
+		</set>
+		WHERE id = #{id};
+	</update>
+
+
+	
+</mapper>

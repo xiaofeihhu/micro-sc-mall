@@ -32,6 +32,7 @@
         <module>center</module>
         <module>sample-service</module>
         <module>common</module>
+        <module>simple-demo</module>
     </modules>
 
 </project>

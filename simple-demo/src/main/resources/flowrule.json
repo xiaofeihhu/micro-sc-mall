@@ -1,0 +1,10 @@
+[
+  {
+    "resource": "test",
+    "controlBehavior": 2,
+    "count": 5,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0
+  }
+]
