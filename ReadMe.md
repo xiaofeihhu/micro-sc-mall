@@ -82,5 +82,5 @@ No | 内容 | 状态 |备注
     联系方式：
         Tel 13851936496     Email 401263564@qq.com  
         <p align="left">
-        <img src="https://github.com/xiaofeihhu/micro-sc-mall/blob/master/WeChat.png" alt="微信二维码"  width="140" height="140">
+        <img src="https://github.com/xiaofeihhu/micro-sc-mall/master/WeChat.png" alt="微信二维码"  width="140" height="140">
         </p>
