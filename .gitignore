@@ -6,6 +6,12 @@ application.properties
 application-*.properties
 bootstrap.properties
 
+
+### other ###
+.log
+*.rar
+logs/
+
 ### STS ###
 .apt_generated
 .classpath
