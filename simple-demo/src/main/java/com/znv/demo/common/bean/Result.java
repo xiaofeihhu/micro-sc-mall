@@ -21,7 +21,33 @@ public class Result {
      * 返回数据对象
      */
     private Object data;
-    
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public long getCost() {
+        return cost;
+    }
+
+    public void setCost(long cost) {
+        this.cost = cost;
+    }
+
+    /**
+     * 请求id
+     */
+    private String requestId;
+
+    /**
+     * 耗时（ms）
+     */
+    private long cost;
+
     public Result() {
         super();
     }

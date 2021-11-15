@@ -32,13 +32,15 @@ public class OvertimeOrderHandler {
                     zSetOperations.reverseRangeByScore(orderKeyOvertime, 0, System.currentTimeMillis());
             reverseRangeByScore.forEach(rr->
                     {
-                        zSetOperations.remove(orderKeyOvertime, String.valueOf(rr));
-                        ThreadPoolHelper.getInstance().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                log.info("deal OvertimeOrderId by redis:{}", (String.valueOf(rr)));
-                            }
-                        });
+                        Long num = zSetOperations.remove(orderKeyOvertime, String.valueOf(rr));
+                        if (num!=null && num>0) {
+                            ThreadPoolHelper.getInstance().execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    log.info("deal OvertimeOrderId by redis:{}", (String.valueOf(rr)));
+                                }
+                            });
+                        }
                     }
             );
             // 防止处理过快取出重复数据

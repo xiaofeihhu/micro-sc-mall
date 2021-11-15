@@ -3,9 +3,11 @@ package com.znv.demo.controller;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.znv.demo.common.bean.Result;
+import com.znv.demo.common.utils.SecretUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,11 +28,20 @@ import java.util.Map;
 @Api(tags = "测试REST风格接口")
 public class TestRestController {
 
+    @Autowired
+    SecretUtil secretUtil;
+
+
     @ApiOperation(value = "返回结果为Result")
     @GetMapping(value = "/test1")
     @SentinelResource(value = "test",blockHandler = "exceptionHandler", fallback = "testFallback")
     public Result test1(@RequestParam(name = "id") String id){
         log.debug("-----"+id+"-------");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return new Result(id);
     }
 
@@ -38,6 +49,11 @@ public class TestRestController {
     @GetMapping(value = "/test2")
     public String test2(@RequestParam(name = "id",required = false) String id){
         log.debug("-----"+id+"-------");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return id;
     }
 
@@ -68,5 +84,21 @@ public class TestRestController {
         // Do some log here.
         ex.printStackTrace();
         return "Oops, error occurred at " + s;
+    }
+
+    @ApiOperation(value = "测试加密")
+    @GetMapping(value = "/jasypt/encrypt")
+    public String encrypt(@RequestParam(name = "str") String str){
+
+        return secretUtil.encrypt(str);
+
+    }
+
+    @ApiOperation(value = "测试解密")
+    @GetMapping(value = "/jasypt/decrypt")
+    public String decrypt(@RequestParam(name = "str") String str){
+
+        return secretUtil.decrypt(str);
+
     }
 }

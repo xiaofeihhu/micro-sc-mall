@@ -64,6 +64,10 @@ public class ResultHandler implements ResponseBodyAdvice<Object>{
         }else{
             ret=(Result) body;
         }
+        long st = ThreadLocalUtil.get();
+        ret.setRequestId(String.valueOf(st));
+        ret.setCost(System.currentTimeMillis() - st);
+
         StringBuilder sb=new StringBuilder();
         sb.append("请求结束，返回结果:\r\n");
         sb.append("RequestId:"+ ThreadLocalUtil.get()+" Result:"+ JSON.toJSONString(ret));

@@ -1,4 +1,4 @@
-package com.znv.mall.user.util;
+package com.znv.demo.common.utils;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
