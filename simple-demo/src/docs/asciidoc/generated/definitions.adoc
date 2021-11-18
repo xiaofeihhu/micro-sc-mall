@@ -1,0 +1,24 @@
+
+[[_definitions]]
+== Definitions
+
+[[_result]]
+=== Result
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**code** +
+__optional__|integer(int32)
+|**cost** +
+__optional__|integer(int64)
+|**data** +
+__optional__|object
+|**message** +
+__optional__|string
+|**requestId** +
+__optional__|string
+|===
+
+
+

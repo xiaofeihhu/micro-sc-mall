@@ -1,0 +1,24 @@
+= demo项目 RESTful API接口文档
+
+
+[[_overview]]
+== Overview
+
+=== Version information
+[%hardbreaks]
+__Version__ : 1.0
+
+
+=== URI scheme
+[%hardbreaks]
+__Host__ : localhost:8088
+__BasePath__ : /
+
+
+=== Tags
+
+* 测试REST风格接口 : Test Rest Controller
+* 测试用接口类 : Test Controller
+
+
+
