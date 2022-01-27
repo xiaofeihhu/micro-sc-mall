@@ -1,7 +1,9 @@
 package com.znv.demo.controller;
 
+import com.znv.demo.service.ManageService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,11 +19,19 @@ import java.util.*;
 @Slf4j
 public class CacheController {
 
+    @Autowired
+    ManageService manageService;
+
     @GetMapping("/getId")
     @Cacheable(cacheNames = "cache")
     public String getId(@RequestParam String id) {
         log.info("get id:{}",id);
         return "hello--" + id;
+    }
+
+    @GetMapping("/getIdName")
+    public String getIdName(@RequestParam String id, @RequestParam String name) {
+        return manageService.getIdNameWithCache(id, name);
     }
 
     @PostMapping("/updateId")

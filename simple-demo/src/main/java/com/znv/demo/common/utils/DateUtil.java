@@ -621,6 +621,6 @@ public class DateUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        System.err.println(getFormatDateStr("2019-5-06 09:55:07.463","yyyy-MM-dd HH:mm:ss"));
+        System.err.println(new Date().getTime());
     }
 }

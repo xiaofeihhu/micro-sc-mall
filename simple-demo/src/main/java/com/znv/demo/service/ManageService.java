@@ -17,4 +17,7 @@ public interface ManageService {
     
     List<Map<String,Object>> queryServer(Map<String, Object> recordMap);
 
+    String getIdNameWithCache(String id, String name);
+
+    String getIdName(String id, String name);
 }

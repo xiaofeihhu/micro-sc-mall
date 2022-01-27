@@ -5,8 +5,10 @@ import com.znv.demo.common.exception.BusinessException;
 import com.znv.demo.common.exception.ResultCodeEnum;
 import com.znv.demo.dao.ManageDao;
 import com.znv.demo.service.ManageService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -22,6 +24,7 @@ import java.util.Map;
  * @date 2018/5/18 14:57
  */
 @Service
+@Slf4j
 public class ManageServiceImpl implements ManageService{
 
     /**
@@ -70,4 +73,16 @@ public class ManageServiceImpl implements ManageService{
     	return  manageDao.queryServer(recordMap);
     }
 
+    @Override
+    @Cacheable(cacheNames = "cache")
+    public String getIdNameWithCache(String id, String name) {
+        log.info("getIdNameWithCache id:{} name：{}",id, name );
+        return "hello--" + id + "--" + name;
+    }
+
+    @Override
+    public String getIdName(String id, String name) {
+        log.info("getIdName id:{} name：{}",id, name );
+        return "hello--" + id + "--" + name;
+    }
 }
