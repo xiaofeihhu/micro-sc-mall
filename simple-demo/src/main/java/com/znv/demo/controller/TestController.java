@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author znv
@@ -16,13 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TestController {
 
     @ApiOperation(value = "swagger页面")
-    @GetMapping(value = "/swagger")
+    @RequestMapping(value = "/swagger",method = RequestMethod.GET)
     public String swagger(){
         return "redirect:swagger-ui.html";
     }
 
     @ApiOperation(value = "websocket页面")
-    @GetMapping("/websocket")
+    @RequestMapping(value = "/websocket",method = RequestMethod.GET)
  	public String websocket() {
  		return "websocket";
  	}

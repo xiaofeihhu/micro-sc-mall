@@ -74,7 +74,7 @@ public class ManageServiceImpl implements ManageService{
     }
 
     @Override
-    @Cacheable(cacheNames = "cache")
+//    @Cacheable(cacheNames = "cache#5", keyGenerator = "myKeyGenerator2")
     public String getIdNameWithCache(String id, String name) {
         log.info("getIdNameWithCache id:{} name：{}",id, name );
         return "hello--" + id + "--" + name;

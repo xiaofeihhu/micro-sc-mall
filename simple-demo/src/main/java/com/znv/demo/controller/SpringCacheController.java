@@ -1,5 +1,6 @@
 package com.znv.demo.controller;
 
+import com.znv.demo.common.utils.DateUtil;
 import com.znv.demo.service.ManageService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -7,26 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
 @Api("缓存cache测试接口")
 @Slf4j
-public class CacheController {
+@RequestMapping("/springCache")
+public class SpringCacheController {
 
     @Autowired
     ManageService manageService;
 
     @GetMapping("/getId")
-    @Cacheable(cacheNames = "cache")
+    @Cacheable(cacheNames = "cache", keyGenerator = "myKeyGenerator2")
     public String getId(@RequestParam String id) {
         log.info("get id:{}",id);
-        return "hello--" + id;
+        return "hello--" + id + "-" + DateUtil.getStringDate();
+    }
+
+    @GetMapping("/getValueByMoreParam")
+    @Cacheable(cacheNames = "cache", keyGenerator = "myKeyGenerator2")
+    public String getValueByMoreParam(@RequestParam String param1,
+                                      @RequestParam int param2,
+                                      @RequestParam Date param3) {
+        log.info("getValueByMoreParam:{},{},{}",param1,param2,param3);
+        return "hello--" + param1 + "-" + param2 + "-" + param3 + DateUtil.getStringDate();
     }
 
     @GetMapping("/getIdName")
@@ -48,7 +56,7 @@ public class CacheController {
     }
 
     @GetMapping("/getLists")
-    @Cacheable(cacheNames = "cacheList")
+    @Cacheable(cacheNames = "cacheList", keyGenerator = "myKeyGenerator2")
     public List<Map<String,Object>> getLists(@RequestParam String id) {
         log.info("get List:{}",id);
         List<Map<String,Object>> list = new ArrayList<>();

@@ -3,7 +3,10 @@ package com.znv.demo.common.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.znv.demo.common.bean.Result;
+import com.znv.demo.common.utils.CacheUtil;
+import com.znv.demo.common.utils.RedisUtil;
 import com.znv.demo.common.utils.ThreadLocalUtil;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -13,6 +16,10 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+import java.lang.reflect.Method;
+
+import static com.znv.demo.common.utils.CacheUtil.cacheCountZSetKey;
 
 /**
   * @ClassName: ResultHandler
@@ -40,6 +47,7 @@ public class ResultHandler implements ResponseBodyAdvice<Object>{
         if(returnType.getMethod().toString().indexOf(".swagger") != -1 ){
             return false;
         }
+
         return true;
     }
 
@@ -57,7 +65,7 @@ public class ResultHandler implements ResponseBodyAdvice<Object>{
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
             Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        
+
         Result ret=new Result();
         if(!(body instanceof Result)){
             ret.setData(body);
