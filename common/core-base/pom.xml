@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.0.10.RELEASE</version>
+            <version>5.2.22.RELEASE</version>
         </dependency>
         <!--Swagger2 - RESTful API文档-->
         <dependency>
