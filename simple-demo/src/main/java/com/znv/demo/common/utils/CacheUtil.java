@@ -1,5 +1,7 @@
 package com.znv.demo.common.utils;
 
+import org.springframework.util.ObjectUtils;
+
 public class CacheUtil {
 
     public static final String cacheKeyPrefix = "cache:";
@@ -10,7 +12,9 @@ public class CacheUtil {
     public static String getCacheCountZSetKey(String clazzName, String methodName, Object[] args) {
         String zSetKey = clazzName + "-" + methodName;
         for (Object o : args) {
-            zSetKey += "-" + o.toString();
+            if (!ObjectUtils.isEmpty(o)) {
+                zSetKey += "-" + o.toString();
+            }
         }
 
         return zSetKey;

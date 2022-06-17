@@ -21,10 +21,23 @@ public class RedisCacheController {
     @Autowired
     ManageService manageService;
 
+    @GetMapping("/getValueWithNoParam")
+    public String getValueWithNoParam() {
+        return "hello--" +  DateUtil.getStringDate();
+    }
+
     @GetMapping("/getId")
     public String getId(@RequestParam String id) {
         log.info("get id:{}",id);
         return "hello--" + id + "-" + DateUtil.getStringDate();
+    }
+
+    @GetMapping("/getValueByAnyParam")
+    public String getValueByAnyParam(@RequestParam(value = "param1", required = false) String param1,
+                                      @RequestParam(value = "param2", required = false) String param2,
+                                      @RequestParam(value = "param3", required = false) String param3) {
+        log.info("getValueByAnyParam:{},{},{}",param1,param2,param3);
+        return "hello--" + param1 + "-" + param2 + "-" + param3 + DateUtil.getStringDate();
     }
 
     @GetMapping("/getValueByMoreParam")
